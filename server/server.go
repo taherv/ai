@@ -15,12 +15,14 @@ func helloHandler(w http.ResponseWriter, r *http.Request) {
 }
 
 func main() {
+	// Package for TLS (Transport Layer Security) cryptographic protocol
 	// Load the server's certificate and private key
 	cert, err := tls.LoadX509KeyPair("server.crt", "server.key")
 	if err != nil {
 		log.Fatal(err) // Error handling when loading the server's certificate and private key
 	}
 
+	// Package for X.509 certificate parsing
 	// Load the CA certificate
 	caCert, err := ioutil.ReadFile("ca.crt")
 	if err != nil {
