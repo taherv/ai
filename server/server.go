@@ -64,3 +64,8 @@ func main() {
 	}
 	log.Fatal(server.ListenAndServeTLS("", ""))
 }
+
+func loadServerCertificate(cfg *config.Config) (tls.Certificate, error) {
+	// Implement the logic to load the server's certificate and private key
+	// Use the provided file paths and return the tls.Certificate object
+}
