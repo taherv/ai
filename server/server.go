@@ -52,4 +52,3 @@ func main() {
 		TLSConfig: tlsConfig,
 	}
 	log.Fatal(server.ListenAndServeTLS("", ""))
-}
