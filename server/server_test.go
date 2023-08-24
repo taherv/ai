@@ -18,3 +18,8 @@ func TestServerFunctionality(t *testing.T) {
 	// Add more test cases as needed
 }
 
+func TestServerFunctionality(t *testing.T) {
+	// Implement the test cases for the server functionality
+	// Add the necessary assertions and error reporting
+}
+
