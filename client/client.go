@@ -2,6 +2,8 @@
 package main
 
 import (
+	"crypto/tls"
+	"crypto/x509"
 	"fmt"
 	"io/ioutil"
 	"log"
@@ -9,8 +11,30 @@ import (
 )
 
 func main() {
+	// Load the client's certificate and private key
+	cert, err := tls.LoadX509KeyPair("client.crt", "client.key")
+	if err != nil {
+		log.Fatal(err)
+	}
+
+	// Load the CA certificate
+	caCert, err := ioutil.ReadFile("ca.crt")
+	if err != nil {
+		log.Fatal(err)
+	}
+	caCertPool := x509.NewCertPool()
+	caCertPool.AppendCertsFromPEM(caCert)
+
+	// Create a tls.Config object with the client's certificate, the CA certificate pool, and set InsecureSkipVerify to false
+	tlsConfig := &tls.Config{
+		Certificates:       []tls.Certificate{cert},
+		RootCAs:            caCertPool,
+		InsecureSkipVerify: false,
+	}
+
 	// Request /hello over port 8080 via the GET method
-	r, err := http.Get("http://localhost:8080/hello")
+	client := &http.Client{Transport: &http.Transport{TLSClientConfig: tlsConfig}}
+	r, err := client.Get("https://localhost:8080/hello")
 	if err != nil {
 		log.Fatal(err)
 	}
