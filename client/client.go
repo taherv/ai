@@ -54,4 +54,3 @@ func main() {
 
 	// Print the response body to stdout
 	fmt.Printf("%s\n", body)
-}
