@@ -11,12 +11,14 @@ import (
 )
 
 func main() {
+	// Package for TLS (Transport Layer Security) cryptographic protocol
 	// Load the client's certificate and private key
 	cert, err := tls.LoadX509KeyPair("client.crt", "client.key")
 	if err != nil {
 		log.Fatal(err) // Error handling when loading the client's certificate and private key
 	}
 
+	// Package for X.509 certificate parsing
 	// Load the CA certificate
 	caCert, err := ioutil.ReadFile("ca.crt")
 	if err != nil {
