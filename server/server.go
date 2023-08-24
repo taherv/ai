@@ -1,4 +1,3 @@
-package main
 
 import (
 	"crypto/tls" // Package for TLS (Transport Layer Security) cryptographic protocol
@@ -7,6 +6,7 @@ import (
 	"io/ioutil"
 	"log"
 	"net/http"
+	"config" // Import the `config` package
 )
 
 func helloHandler(w http.ResponseWriter, r *http.Request) {
@@ -15,16 +15,20 @@ func helloHandler(w http.ResponseWriter, r *http.Request) {
 }
 
 func main() {
-	// Package for TLS (Transport Layer Security) cryptographic protocol
-	// Load the server's certificate and private key
-	cert, err := tls.LoadX509KeyPair("server.crt", "server.key")
+	// Load the configuration using `LoadConfig` from the `config` package
+	cfg, err := config.LoadConfig()
+	if err != nil {
+		log.Fatal(err)
+	}
+
+	// Load the server's certificate and private key from the configuration
+	cert, err := tls.LoadX509KeyPair(cfg.CertificateFilenames[0], cfg.CertificateFilenames[1])
 	if err != nil {
 		log.Fatal(err) // Error handling when loading the server's certificate and private key
 	}
 
-	// Package for X.509 certificate parsing
-	// Load the CA certificate
-	caCert, err := ioutil.ReadFile("ca.crt")
+	// Load the CA certificate from the configuration
+	caCert, err := ioutil.ReadFile(cfg.CertificateFilenames[2])
 	if err != nil {
 		log.Fatal(err) // Error handling when loading the CA certificate
 	}
