@@ -18,3 +18,8 @@ func TestClientFunctionality(t *testing.T) {
 	// Add more test cases as needed
 }
 
+func TestClientFunctionality(t *testing.T) {
+	// Implement the test cases for the client functionality
+	// Add the necessary assertions and error reporting
+}
+
