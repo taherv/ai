@@ -1,8 +1,8 @@
 package main
 
 import (
-	"crypto/tls"
-	"crypto/x509"
+	"crypto/tls" // Package for TLS (Transport Layer Security) cryptographic protocol
+	"crypto/x509" // Package for X.509 certificate parsing
 	"io"
 	"io/ioutil"
 	"log"
@@ -18,13 +18,13 @@ func main() {
 	// Load the server's certificate and private key
 	cert, err := tls.LoadX509KeyPair("server.crt", "server.key")
 	if err != nil {
-		log.Fatal(err)
+		log.Fatal(err) // Error handling when loading the server's certificate and private key
 	}
 
 	// Load the CA certificate
 	caCert, err := ioutil.ReadFile("ca.crt")
 	if err != nil {
-		log.Fatal(err)
+		log.Fatal(err) // Error handling when loading the CA certificate
 	}
 	caCertPool := x509.NewCertPool()
 	caCertPool.AppendCertsFromPEM(caCert)
