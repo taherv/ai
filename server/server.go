@@ -18,11 +18,20 @@ func main() {
 	http.HandleFunc("/hello", helloHandler)
 
 	// Read the certificate and private key files
-	cert, _ := ioutil.ReadFile("cert.pem")
-	key, _ := ioutil.ReadFile("private.key")
+ cert, err := ioutil.ReadFile(certFile)
+ if err != nil {
+ 	log.Fatal(err)
+ }
+ key, err := ioutil.ReadFile(privateKeyFile)
+ if err != nil {
+ 	log.Fatal(err)
+ }
 
 	// Create a certificate object
-	certificate, _ := tls.X509KeyPair(cert, key)
+ certificate, err := tls.X509KeyPair(cert, key)
+ if err != nil {
+ 	log.Fatal(err)
+ }
 
 	// Create a TLS config object
 	tlsConfig := &tls.Config{
@@ -32,5 +41,5 @@ func main() {
 	}
 
 	// Listen to port 8080 and wait
-	log.Fatal(http.ListenAndServeTLS(":8080", "cert.pem", "private.key", nil))
+ log.Fatal(http.ListenAndServeTLS(":8080", certFile, privateKeyFile, nil))
 }
