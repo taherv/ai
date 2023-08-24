@@ -13,7 +13,10 @@ import (
 
 func GenerateCertificates() {
 	// Generate a private key
-	privateKey, _ := rsa.GenerateKey(rand.Reader, 2048)
+ privateKey, err := rsa.GenerateKey(rand.Reader, 2048)
+ if err != nil {
+ 	log.Fatal(err)
+ }
 
 	// Create a template for the certificate
 	certTemplate := &x509.Certificate{
@@ -32,7 +35,10 @@ func GenerateCertificates() {
 	}
 
 	// Create a self-signed certificate
-	certBytes, _ := x509.CreateCertificate(rand.Reader, certTemplate, certTemplate, &privateKey.PublicKey, privateKey)
+ certBytes, err := x509.CreateCertificate(rand.Reader, certTemplate, certTemplate, &privateKey.PublicKey, privateKey)
+ if err != nil {
+ 	log.Fatal(err)
+ }
 
 	// Encode the private key into PEM format
 	privateKeyPEM := pem.EncodeToMemory(&pem.Block{
@@ -47,8 +53,8 @@ func GenerateCertificates() {
 	})
 
 	// Write the private key and certificate to files
-	ioutil.WriteFile("private.key", privateKeyPEM, 0644)
-	ioutil.WriteFile("cert.pem", certPEM, 0644)
+ ioutil.WriteFile(privateKeyFile, privateKeyPEM, 0644)
+ ioutil.WriteFile(certFile, certPEM, 0644)
 }
 
 func main() {
