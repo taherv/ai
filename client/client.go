@@ -66,3 +66,8 @@ func main() {
 	// Print the response body to stdout
 	fmt.Printf("%s\n", body)
 }
+
+func loadClientCertificate(cfg *config.Config) (tls.Certificate, error) {
+	// Implement the logic to load the client's certificate and private key
+	// Use the provided file paths and return the tls.Certificate object
+}
