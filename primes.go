@@ -5,8 +5,8 @@ import (
 	"math"
 )
 
-// SieveOfEratosthenes generates all primes less than n.
-func SieveOfEratosthenes(n int) []int {
+// Foo generates all primes less than n.
+func Foo(n int) []int {
 	primes := make([]bool, n+1)
 	for i := 2; i <= n; i++ {
 		primes[i] = true
@@ -57,7 +57,7 @@ func FindMiddle4DigitPrime(primes []int) int {
 }
 
 func main() {
-	primes := SieveOfEratosthenes(1000000)
+	primes := Foo(1000000)
 
 	largest6DigitPrime := FindLargest6DigitPrime(primes)
 	fmt.Println("Largest 6-digit prime:", largest6DigitPrime)
